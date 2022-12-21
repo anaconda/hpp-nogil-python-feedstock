@@ -1,4 +1,4 @@
-{% set version = "3.9.15" %}
+{% set version = "3.9.16" %}
 {% set dev = "" %}
 {% set dev_ = "" %}
 {% set ver2 = '.'.join(version.split('.')[0:2]) %}
@@ -44,7 +44,7 @@ source:
     git_tag: v{{ version }}{{ dev }}
 {% else %}
   - url: https://www.python.org/ftp/python/{{ version }}/Python-{{ version }}{{ dev }}.tar.xz
-    sha256: 12daff6809528d9f6154216950423c9e30f0e47336cb57c6aa0b4387dd5eb4b2
+    sha256: 22dddc099246dd2760665561e8adb7394ea0cc43a72684c6480f9380f7786439
 {% endif %}
     patches:
       ## - patches/0000-Fix-off-by-one-error-in-_winapi_WaitForMultipleObjec.patch
