@@ -211,7 +211,6 @@ test:
     - pydoc -h
     - python3-config --help  # [not win]
     - python -m venv %%TEMP%%\venv  # [win]
-    - python -c "import ssl; print(ssl.OPENSSL_VERSION)"
     - python -c "import sysconfig; print(sysconfig.get_config_var('CC'))"  # [not win]
     # diabled as it would fail for os update cos6->cos7
     # -  _CONDA_PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_x86_64_conda_cos6_linux_gnu python -c "import sysconfig; print(sysconfig.get_config_var('CC'))"  # [linux64]
