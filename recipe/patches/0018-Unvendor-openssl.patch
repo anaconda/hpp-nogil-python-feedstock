@@ -6,16 +6,16 @@ Subject: [PATCH 18/22] Unvendor openssl
 ---
  PCbuild/_ssl.vcxproj         | 3 ---
  PCbuild/_ssl.vcxproj.filters | 3 ---
- PCbuild/openssl.props        | 2 +-
+ PCbuild/openssl.props        | 3 ++-
  PCbuild/python.props         | 6 +++---
  PCbuild/python.vcxproj       | 3 +++
  PCbuild/pythonw.vcxproj      | 3 +++
  6 files changed, 10 insertions(+), 10 deletions(-)
 
 diff --git a/PCbuild/openssl.props b/PCbuild/openssl.props
-index a7e16793c7..af1350cae7 100644
---- a/PCbuild/openssl.props	2022-03-17 23:09:33.260232279 +0300
-+++ b/PCbuild/openssl.props	2022-03-17 23:09:51.300878161 +0300
+index a7e16793c7..c729479889 100644
+--- a/PCbuild/openssl.props
++++ b/PCbuild/openssl.props
 @@ -5,7 +5,7 @@
        <AdditionalIncludeDirectories>$(opensslIncludeDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
      </ClCompile>
@@ -25,6 +25,14 @@ index a7e16793c7..af1350cae7 100644
        <AdditionalDependencies>ws2_32.lib;libcrypto.lib;libssl.lib;%(AdditionalDependencies)</AdditionalDependencies>
      </Link>
    </ItemDefinitionGroup>
+@@ -13,6 +13,7 @@
+     <_DLLSuffix>-1_1</_DLLSuffix>
+     <_DLLSuffix Condition="$(Platform) == 'ARM'">$(_DLLSuffix)-arm</_DLLSuffix>
+     <_DLLSuffix Condition="$(Platform) == 'ARM64'">$(_DLLSuffix)-arm64</_DLLSuffix>
++    <_DLLSuffix Condition="$(Platform) == 'x64'">$(_DLLSuffix)-x64</_DLLSuffix>
+   </PropertyGroup>
+   <ItemGroup>
+     <_SSLDLL Include="$(opensslOutDir)\libcrypto$(_DLLSuffix).dll" />
 diff --git a/PCbuild/python.props b/PCbuild/python.props
 index 8be1daa696..e4f36cd397 100644
 --- a/PCbuild/python.props	2022-03-16 16:27:21.000000000 +0300
