@@ -1,4 +1,4 @@
-{% set version = "3.8.15" %}
+{% set version = "3.8.16" %}
 {% set linkage_nature = os.environ.get('PY_INTERP_LINKAGE_NATURE', '') %}
 {% set debug = os.environ.get('PY_INTERP_DEBUG', '') %}
 {% if linkage_nature != '' %}
@@ -16,7 +16,7 @@ package:
 
 source:
   - url: https://www.python.org/ftp/python/{{ version }}/Python-{{ version }}.tar.xz
-    sha256: 5114fc7918a2a5e20eb5aac696b30c36f412c6ef24b13f5c9eb9e056982d9550
+    sha256: d85dbb3774132473d8081dcb158f34a10ccad7a90b96c7e50ea4bb61f5ce4562
     patches:
       - patches/0001-Fix-off-by-one-error-in-_winapi_WaitForMultipleObjec.patch
 {% if 'conda-forge' not in channel_targets %}
@@ -48,7 +48,8 @@ source:
       - patches/0023-Revert-part-of-https-bugs.python.org-issue33895-http.patch  # [not win]
       - patches/0024-cross-compile-darwin.patch.patch
       - patches/0032-ctypes-link-to-coreFoundation.patch
-      - patches/0033-py38-mailcap-CVE-2015-20107.patch
+      # MailCap CVE (CVE-2015-20107) was fixed in 3.8.16
+      # - patches/0033-py38-mailcap-CVE-2015-20107.patch
 
   # TODO :: Depend on our own packages for these:
   - url: https://github.com/python/cpython-source-deps/archive/xz-5.2.2.zip          # [win]
@@ -277,7 +278,6 @@ about:
     Java. The language provides constructs intended to enable clear programs
     on both a small and large scale.
   doc_url: https://www.python.org/doc/versions/
-  doc_source_url: https://github.com/python/pythondotorg/blob/master/docs/source/index.rst
   dev_url: https://devguide.python.org/
 
 extra:
