@@ -269,7 +269,7 @@ if [[ ${_OPTIMIZED} == yes ]]; then
       #         run while on Unix, all 400+ are run, making this slower and less well curated
       _PROFILE_TASK+=(PROFILE_TASK="-m test --pgo")
     else
-      _PROFILE_TASK+=(PROFILE_TASK="-m test --pgo-extended")
+      _PROFILE_TASK+=(PROFILE_TASK="-m test --pgo")
     fi
   fi
   if [[ ${CC} =~ .*gcc.* ]]; then
