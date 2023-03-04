@@ -329,7 +329,6 @@ outputs:
         - {{ pin_subpackage('python', exact=True) }}
     script: install_regr_testsuite.sh  # [unix]
 
-{% if target_platform != "linux-aarch64" %}
   - name: libpython-static
     noarch: python  # [unix]
     script: build_static.sh  # [unix]
@@ -376,7 +375,6 @@ outputs:
         -     bash build-and-test.sh  # [unix]
         -   popd  # [unix]
         - popd  # [unix]
-{% endif %}
 
 about:
   home: https://www.python.org/
