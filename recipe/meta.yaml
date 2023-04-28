@@ -4,7 +4,7 @@
 {% set ver2 = '.'.join(version.split('.')[0:2]) %}
 {% set ver2nd = ''.join(version.split('.')[0:2]) %}
 {% set ver3nd = ''.join(version.split('.')[0:3]) %}
-{% set build_number = "2" %}
+{% set build_number = "3" %}
 {% set channel_targets = ('abc', 'def')  %}
 
 # Sanitize build system env. var tweak parameters
@@ -255,9 +255,9 @@ outputs:
         - setuptools
       requires:
         - ripgrep
-        - cmake  # [not (linux and ppc64le)]
+        - cmake-no-system  # [not (linux and ppc64le)]
         - make  # [unix]
-        - ninja
+        - ninja-base
         - {{ compiler('c') }}
         # Tried to use enable_language(C) to avoid needing this. It does not work.
         - {{ compiler('cxx') }}
