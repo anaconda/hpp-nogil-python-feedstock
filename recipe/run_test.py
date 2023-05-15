@@ -103,4 +103,4 @@ if not (armv6l or armv7l or ppc64le or osx105 or aarch64):
 import ssl
 print('OPENSSL_VERSION:', ssl.OPENSSL_VERSION)
 if sys.platform != 'win32':
-    assert '1.1.1' in ssl.OPENSSL_VERSION
+    assert '3.' in ssl.OPENSSL_VERSION
