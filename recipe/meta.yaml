@@ -211,7 +211,6 @@ outputs:
         # Tried to use enable_language(C) to avoid needing this. It does not work.
         - {{ compiler('cxx') }}
       files:
-        - tests/distutils/*
         - tests/cmake/*
         - tests/cython/*
         - tests/prefix-replacement/*
