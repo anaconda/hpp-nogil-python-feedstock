@@ -116,7 +116,7 @@ outputs:
       #   - lib/python{{ ver2 }}/lib-dynload/_hashlib.cpython-{{ ver2nd }}-x86_64-linux-gnu.so  # [linux]
       #   - lib/libpython3.dylib  # [osx]
       # match python.org compiler standard
-      skip: true  # [win and int(float(vc)) < 15]
+      skip: true  # [win and int(float(vc)) < 14]
 {% if 'conda-forge' in channel_targets %}
       skip_compile_pyc:
         - '*.py'            # [build_platform != target_platform]
@@ -155,6 +155,7 @@ outputs:
         - '$RPATH/libpthread.so.0'  # [linux]
         - '$RPATH/librt.so.1'       # [linux]
         - '$RPATH/libutil.so.1'     # [linux]
+        - '$RPATH/ld64.so.1'        # [s390x]
 
     requirements:
       build:
