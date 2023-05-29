@@ -7,7 +7,7 @@
 {% set build_number = "0" %}
 {% set channel_targets = ('abc', 'def')  %}
 # this is just for the initial build, to break dependencies with python -> pip -> libpython-static
-{% set bootstrap = "true" %}
+{% set bootstrap = "false" %}
 
 # this makes the linter happy
 {% set channel_targets = channel_targets or 'conda-forge main' %}
