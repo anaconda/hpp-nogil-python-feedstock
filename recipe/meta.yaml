@@ -233,7 +233,8 @@ outputs:
         - echo %cd% # [win]
         - dir . # [win]
         - dir build # [win]
-        - pushd build/lib*/
+        - pushd build/lib*/ # [not win]
+        - pushd build\lib* #[win]
         - echo %cd% # [win]
         - echo "After pushd build/lib" # [win]
         - python -c "import greet; greet.greet('Python user')" | rg "Hello Python"
