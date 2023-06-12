@@ -224,23 +224,23 @@ outputs:
         - if not exist %PREFIX%\\Scripts\\2to3.exe exit 1  # [win]
         - if not exist %PREFIX%\\Scripts\\pydoc.exe exit 1  # [win]
         - pushd tests
-        -   pushd distutils
-        -     python setup.py install -v -v
-        -     python -c "import foobar"
-        -   popd
-        -   pushd distutils.cext
-        -     python setup.py build_ext -v -v
-        -       pushd build/lib*/
-        -         python -c "import greet; greet.greet('Python user')" | rg "Hello Python"
-        -       popd
-        -   popd
-        -   pushd prefix-replacement  # [unix]
-        -     bash build-and-test.sh  # [unix]
-        -   popd  # [unix]
-        -   pushd cmake
-        -     cmake -GNinja -DPY_VER={{ version }}
+        - pushd distutils
+        - python setup.py install -v -v
+        - python -c "import foobar"
+        - popd
+        - pushd distutils.cext
+        - python setup.py build_ext -v -v
+        - pushd build/lib*/
+        - python -c "import greet; greet.greet('Python user')" | rg "Hello Python"
+        - popd
+        - popd
+        - pushd prefix-replacement  # [unix]
+        - bash build-and-test.sh  # [unix]
+        - popd  # [unix]
+        - pushd cmake
+        - cmake -GNinja -DPY_VER={{ version }}
               # --trace --debug-output --debug-trycompile .
-        -   popd
+        - popd
         - popd
         - test ! -f default.profraw   # [osx]
   - name: libpython-static
