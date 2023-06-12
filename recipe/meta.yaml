@@ -1,6 +1,6 @@
 {% set version = "3.12.0" %}
-{% set dev = "b1" %}
-{% set dev_ = "b1_" %}
+{% set dev = "b2" %}
+{% set dev_ = "b2_" %}
 {% set ver2 = '.'.join(version.split('.')[0:2]) %}
 {% set ver2nd = ''.join(version.split('.')[0:2]) %}
 {% set ver3nd = ''.join(version.split('.')[0:3]) %}
@@ -50,7 +50,7 @@ source:
 {% else %}
   - url: https://www.python.org/ftp/python/{{ version }}/Python-{{ version }}{{ dev }}.tar.xz
     # md5 from: https://www.python.org/downloads/release/python-{{ ver3nd }}/
-    sha256: 8ba76ca64acd745babdfb8467820964df98858ee6a9577bf1d93447257be581e
+    sha256: 8dfc42dda6e4d0647cf8a6f7cd900704dea9fd866402a282829bd2e6e271b818
 {% endif %}
     patches:
       - patches/0001-Win32-Change-FD_SETSIZE-from-512-to-2048.patch
@@ -204,9 +204,9 @@ outputs:
 {% endif %}
       requires:
         - ripgrep
-        - cmake
+        - cmake-no-system
         - make  # [unix]
-        - ninja
+        - ninja-base
         - {{ compiler('c') }}
         # Tried to use enable_language(C) to avoid needing this. It does not work.
         - {{ compiler('cxx') }}
