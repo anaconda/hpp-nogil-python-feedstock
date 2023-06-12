@@ -230,8 +230,14 @@ outputs:
         - popd
         - pushd distutils.cext
         - python setup.py build_ext -v -v
+        - echo %cd% # [win]
+        - dir . # [win]
+        - dir build # [win]
         - pushd build/lib*/
+        - echo %cd% # [win]
+        - echo "After pushd build/lib" # [win]
         - python -c "import greet; greet.greet('Python user')" | rg "Hello Python"
+        - echo "After python -c import" # [win]
         - popd
         - popd
         - pushd prefix-replacement  # [unix]
