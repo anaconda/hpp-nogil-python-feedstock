@@ -100,8 +100,6 @@ if [[ ${_OPTIMIZED} = yes ]]; then
   CXXFLAGS=$(echo "${CXXFLAGS}" | sed "s/-O2/-O3/g")
 fi
 
-${SYS_PYTHON} ${RECIPE_DIR}/brand_python.py
-
 if [[ "$target_platform" == linux-* ]]; then
   cp ${PREFIX}/include/uuid/uuid.h ${PREFIX}/include/uuid.h
 fi
