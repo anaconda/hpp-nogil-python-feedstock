@@ -77,7 +77,7 @@ source:
       - patches/0025-Do-not-pass-g-to-GCC-when-not-Py_DEBUG.patch
       - patches/0026-Remove-unused-readelf.patch
       - patches/0027-branding.patch
-      {% if '3.0' in openssl %}
+      {% if (openssl | string).startswith('3.0') %}
       - patches/0028-Use-OpenSSL-3-instead-of-1_1.patch
       {% endif %}
 
