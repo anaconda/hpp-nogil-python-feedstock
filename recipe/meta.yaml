@@ -256,9 +256,9 @@ outputs:
         - setuptools
       requires:
         - ripgrep
-        - cmake-no-system  # [not (linux and ppc64le)]
+        - cmake-no-system  # [not (linux and ppc64le)] changed from cmake to support OpenSSL 3 bootstrap build
         - make  # [unix]
-        - ninja-base
+        - ninja-base # changed from ninja to support OpenSSL 3 bootstrap build
         - {{ compiler('c') }}
         # Tried to use enable_language(C) to avoid needing this. It does not work.
         - {{ compiler('cxx') }}
