@@ -4,7 +4,7 @@
 {% set ver2 = '.'.join(version.split('.')[0:2]) %}
 {% set ver2nd = ''.join(version.split('.')[0:2]) %}
 {% set ver3nd = ''.join(version.split('.')[0:3]) %}
-{% set build_number = "2" %}
+{% set build_number = "3" %}
 {% set channel_targets = ('abc', 'def')  %}
 
 # Sanitize build system env. var tweak parameters
@@ -80,6 +80,9 @@ source:
       - patches/0034-have-pyunicode-decodeunicodeescape.patch
       # MailCap CVE (CVE-2015-20107) was fixed in 3.9.16
       # - patches/0035-py39-mailcap-CVE-2015-20107.patch
+{% if (openssl | string).startswith('3.0') %}
+      - patches/0036-openssl3.patch
+{% endif %}
 {% if 'conda-forge' not in channel_targets %}
       - patches/9999-Add-Anaconda-Distribution-version-logic.patch  # [not win]
 {% endif %}
@@ -255,9 +258,9 @@ outputs:
         - setuptools
       requires:
         - ripgrep
-        - cmake  # [not (linux and ppc64le)]
+        - cmake-no-system  # [not (linux and ppc64le)] changed from cmake to support OpenSSL 3 bootstrap build
         - make  # [unix]
-        - ninja
+        - ninja-base # changed from ninja to support OpenSSL 3 bootstrap build
         - {{ compiler('c') }}
         # Tried to use enable_language(C) to avoid needing this. It does not work.
         - {{ compiler('cxx') }}
@@ -322,6 +325,7 @@ outputs:
         -   popd
         - popd
         - test ! -f default.profraw   # [osx]
+        - python -c "import ssl; assert ssl.OPENSSL_VERSION.startswith('{{ openssl }}')"
 
   - name: python-regr-testsuite
     requirements:
