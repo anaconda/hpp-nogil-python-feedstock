@@ -269,7 +269,14 @@ if [[ ${_OPTIMIZED} == yes ]]; then
       #         run while on Unix, all 400+ are run, making this slower and less well curated
       _PROFILE_TASK+=(PROFILE_TASK="-m test --pgo")
     else
-      _PROFILE_TASK+=(PROFILE_TASK="-m test --pgo-extended")
+      # 3/1/2023: Use --pgo instead of --pgo-extended because the latter causes our builds to stall.
+      # The upstream maintainer who implemented pgo/pgo-extended options says it is really not worth
+      # the resources to run pgo-extended (which runs the whole test-suite). The --pgo set of tests are
+      # curated specifically to be useful/appropriate for pgo instrumentation. See note in conda-forge
+      # recipe for more info:
+      # https://github.com/conda-forge/python-feedstock/blob/e65c773613a1903a15fa6294153d5f4b1d8619bf/recipe/build_base.sh#L254-L258)
+      # _PROFILE_TASK+=(PROFILE_TASK="-m test --pgo-extended")
+      _PROFILE_TASK+=(PROFILE_TASK="-m test --pgo")
     fi
   fi
   if [[ ${CC} =~ .*gcc.* ]]; then
