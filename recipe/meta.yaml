@@ -177,8 +177,8 @@ outputs:
     test:
       requires:
         - ripgrep
-        - cmake-no-system
-        - ninja-base
+        - cmake-no-system # changed from cmake to support OpenSSL 3 bootstrap build
+        - ninja-base # changed from ninja to support OpenSSL 3 bootstrap build
         - cython
         - setuptools
         - {{ compiler('c') }}
