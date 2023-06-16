@@ -83,7 +83,7 @@ source:
     sha256: 69e3f7235108a75033cb9325a0a3535ba271d144ec66fccefe134eda27d7bcfe         # [win]
 
 build:
-  number: 3
+  number: 4
   script_env:
     - PY_INTERP_LINKAGE_NATURE
     - PY_INTERP_DEBUG
@@ -177,8 +177,8 @@ outputs:
     test:
       requires:
         - ripgrep
-        - cmake
-        - ninja
+        - cmake-no-system # changed from cmake to support OpenSSL 3 bootstrap build
+        - ninja-base # changed from ninja to support OpenSSL 3 bootstrap build
         - cython
         - setuptools
         - {{ compiler('c') }}
@@ -224,23 +224,34 @@ outputs:
         - if not exist %PREFIX%\\Scripts\\2to3.exe exit 1  # [win]
         - if not exist %PREFIX%\\Scripts\\pydoc.exe exit 1  # [win]
         - pushd tests
-        -   pushd distutils
-        -     python setup.py install -v -v
-        -     python -c "import foobar"
-        -   popd
-        -   pushd distutils.cext
-        -     python setup.py install -v -v
-        -     python -c "import greet; greet.greet('Python user')" | rg "Hello Python"
-        -   popd
-        -   pushd prefix-replacement  # [unix]
-        -     bash build-and-test.sh  # [unix]
-        -   popd  # [unix]
-        -   pushd cmake
-        -     cmake -GNinja -DPY_VER={{ version }}
+        - pushd distutils
+        - python setup.py install -v -v
+        - python -c "import foobar"
+        - popd
+        - pushd distutils.cext
+        - python setup.py build_ext -v -v
+        - echo %cd% # [win]
+        - dir . # [win]
+        - dir build # [win]
+        - pushd build/lib*/ # [not win]
+        - pushd build\lib* #[win]
+        - echo %cd% # [win]
+        - echo "After pushd build/lib" # [win]
+        - python -c "import greet; greet.greet('Python user')" | rg "Hello Python"
+        - echo "After python -c import" # [win]
+        - popd
+        - popd
+        - pushd prefix-replacement  # [unix]
+        - bash build-and-test.sh  # [unix]
+        - popd  # [unix]
+        - pushd cmake
+        - cmake -GNinja -DPY_VER={{ version }}
               # --trace --debug-output --debug-trycompile .
-        -   popd
+        - popd
         - popd
         - test ! -f default.profraw   # [osx]
+        - python -c "import ssl; assert '{{ openssl }}' in ssl.OPENSSL_VERSION"
+
   - name: libpython-static
     build:
       activate_in_script: True
