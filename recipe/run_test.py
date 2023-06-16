@@ -99,8 +99,3 @@ if not (armv6l or armv7l or ppc64le or osx105 or aarch64):
     else:
         TCLTK_VER = os.getenv("tk")
     assert _tkinter.TK_VERSION == _tkinter.TCL_VERSION == TCLTK_VER
-
-import ssl
-print('OPENSSL_VERSION:', ssl.OPENSSL_VERSION)
-if sys.platform != 'win32':
-    assert '3.' in ssl.OPENSSL_VERSION

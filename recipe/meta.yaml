@@ -250,6 +250,8 @@ outputs:
         - popd
         - popd
         - test ! -f default.profraw   # [osx]
+        - python -c "import ssl; assert '{{ openssl }}' in ssl.OPENSSL_VERSION"
+
   - name: libpython-static
     build:
       activate_in_script: True
