@@ -80,7 +80,7 @@ source:
       - patches/0034-have-pyunicode-decodeunicodeescape.patch
       # MailCap CVE (CVE-2015-20107) was fixed in 3.9.16
       # - patches/0035-py39-mailcap-CVE-2015-20107.patch
-{% if '3.0' in openssl %}
+{% if openssl.startswith("3") %}
       - patches/0036-openssl3.patch
 {% endif %}
 {% if 'conda-forge' not in channel_targets %}
