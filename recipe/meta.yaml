@@ -325,7 +325,7 @@ outputs:
         -   popd
         - popd
         - test ! -f default.profraw   # [osx]
-        - python -c "import ssl; assert '{{ openssl }}' in ssl.OPENSSL_VERSION"
+        - python -c "import ssl; assert ssl.OPENSSL_VERSION.startswith('{{ openssl }}')"
 
   - name: python-regr-testsuite
     requirements:
