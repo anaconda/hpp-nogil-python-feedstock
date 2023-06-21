@@ -1,4 +1,6 @@
-# upload to a temp channel for testing
+# until release, 3.12 beta and rc go to ad-testing/label/py312
+upload_channels:
+  ad-testing: py312 
 channels:
   ad-testing: py312 
 
