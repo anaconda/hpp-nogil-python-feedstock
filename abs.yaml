@@ -1,0 +1,12 @@
+# until release, 3.12 beta and rc go to ad-testing/label/py312
+upload_channels:
+  ad-testing: py312 
+channels:
+  ad-testing: py312 
+
+# the conda-build parameters to use for disabling --skip-existing
+build_parameters:
+  - "--suppress-variables"
+  #- "--skip-existing"
+  - "--error-overlinking"
+  - "--error-overdepending"

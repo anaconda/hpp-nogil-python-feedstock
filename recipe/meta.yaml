@@ -1,10 +1,10 @@
-{% set version = "3.11.3" %}
-{% set dev = "" %}
-{% set dev_ = "" %}
+{% set version = "3.12.0" %}
+{% set dev = "b3" %}
+{% set dev_ = "b3_" %}
 {% set ver2 = '.'.join(version.split('.')[0:2]) %}
 {% set ver2nd = ''.join(version.split('.')[0:2]) %}
 {% set ver3nd = ''.join(version.split('.')[0:3]) %}
-{% set build_number = "1" %}
+{% set build_number = "0" %}
 {% set channel_targets = ('abc', 'def')  %}
 # this is just for the initial build, to break dependencies with python -> pip -> libpython-static
 {% set bootstrap = "false" %}
@@ -50,15 +50,10 @@ source:
 {% else %}
   - url: https://www.python.org/ftp/python/{{ version }}/Python-{{ version }}{{ dev }}.tar.xz
     # md5 from: https://www.python.org/downloads/release/python-{{ ver3nd }}/
-    sha256: 8a5db99c961a7ecf27c75956189c9602c968751f11dbeae2b900dbff1c085b5e
+    sha256: 9160c6065e9885b37c2e57865d0bb27fc7e54aaa9c186c761da30d2bddbcc9ee
 {% endif %}
     patches:
       - patches/0001-Win32-Change-FD_SETSIZE-from-512-to-2048.patch
-      - patches/0002-Win32-distutils-Add-support-to-cygwinccompiler-for-V.patch
-      # https://github.com/python/cpython/pull/28501
-      - patches/0004-bpo-45258-search-for-isysroot-in-addition-to-sysroot.patch
-      # https://github.com/pypa/distutils/pull/54
-      - patches/0005-runtime_library_dir_option-Use-1st-word-of-CC-as-com.patch
       - patches/0006-Win32-Do-not-download-externals.patch
       - patches/0007-Fix-find_library-so-that-it-looks-in-sys.prefix-lib-.patch
       # https://github.com/python/cpython/pull/28397
@@ -67,24 +62,24 @@ source:
       - patches/0009-Disable-registry-lookup-unless-CONDA_PY_ALLOW_REG_PA.patch
       - patches/0010-Unvendor-openssl.patch
       - patches/0011-Unvendor-sqlite3.patch
-      # https://github.com/pypa/distutils/pull/53
-      - patches/0012-Use-ranlib-from-env-if-env-variable-is-set.patch
       - patches/0013-Add-CondaEcosystemModifyDllSearchPath.patch
-      - patches/0014-Add-d1trimfile-SRC_DIR-to-make-pdbs-more-relocatable.patch
       - patches/0015-Doing-d1trimfile.patch
       # https://github.com/python/cpython/pull/23523
       - patches/0016-cross-compile-darwin.patch
       - patches/0017-Fix-TZPATH-on-windows.patch
       # https://github.com/python/cpython/pull/24324
       - patches/0018-Make-dyld-search-work-with-SYSTEM_VERSION_COMPAT-1.patch
-      # https://github.com/pypa/distutils/pull/53
-      - patches/0019-Fix-LDSHARED-when-CC-is-overriden-on-Linux-too.patch
       - patches/0020-Unvendor-bzip2.patch
       - patches/0021-Unvendor-libffi.patch
       - patches/0022-Unvendor-tcltk.patch
       - patches/0023-unvendor-xz.patch
       - patches/0024-unvendor-zlib.patch
       - patches/0025-Do-not-pass-g-to-GCC-when-not-Py_DEBUG.patch
+      - patches/0026-Remove-unused-readelf.patch
+      - patches/0027-branding.patch
+      {% if (openssl | string).startswith('3.0') %}
+      - patches/0028-Use-OpenSSL-3-instead-of-1_1.patch
+      {% endif %}
 
 build:
   number: {{ build_number }}
@@ -164,6 +159,7 @@ outputs:
         - '$RPATH/libpthread.so.0'  # [linux]
         - '$RPATH/librt.so.1'       # [linux]
         - '$RPATH/libutil.so.1'     # [linux]
+        - '$RPATH/ld64.so.1'        # [s390x]
 
     requirements:
       build:
@@ -188,7 +184,7 @@ outputs:
         - sqlite
         - xz
         - zlib
-        - openssl
+        - openssl {{ openssl }}
         - readline  # [not win]
         - tk
         - ncurses  # [unix]
@@ -212,14 +208,13 @@ outputs:
 {% endif %}
       requires:
         - ripgrep
-        - cmake-no-system # changed from cmake to support OpenSSL 3 bootstrap build CHANGE BACK next build!
+        - cmake-no-system
         - make  # [unix]
-        - ninja-base # changed from ninja to support OpenSSL 3 bootstrap build CHANGE BACK!
+        - ninja-base
         - {{ compiler('c') }}
         # Tried to use enable_language(C) to avoid needing this. It does not work.
         - {{ compiler('cxx') }}
       files:
-        - tests/distutils/*
         - tests/cmake/*
         - tests/cython/*
         - tests/prefix-replacement/*
@@ -248,7 +243,7 @@ outputs:
         - python -c "import sysconfig; print(sysconfig.get_config_var('CC'))"  # [not win]
         - _CONDA_PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_x86_64_conda_cos6_linux_gnu python -c "import sysconfig; print(sysconfig.get_config_var('CC'))"   # [linux64]
         # check for unreplaced @ symbols in sysconfig files
-        - for f in ${CONDA_PREFIX}/lib/python*/_sysconfig*.py; do echo "Checking $f:"; if [[ `rg @ $f` ]]; then echo "FAILED ON $f"; cat $f; exit 1; fi; done  # [linux64 or osx]
+        - for f in ${CONDA_PREFIX}/lib/python*/_sysconfig*.py; do echo "Checking $f:"; if [[ `rg @[^@]*@ $f` ]]; then echo "FAILED ON $f"; cat $f; exit 1; fi; done  # [linux64 or osx]
         - test ! -f ${PREFIX}/lib/libpython${PKG_VERSION%.*}.a  # [unix]
         - test ! -f ${PREFIX}/lib/libpython${PKG_VERSION%.*}.nolto.a  # [unix]
         # https://github.com/conda-forge/python-feedstock/issues/384
@@ -263,10 +258,6 @@ outputs:
         - if not exist %PREFIX%\\Scripts\\pydoc.exe exit 1  # [win]
         - if not exist %PREFIX%\\libs\\python{{ ver2nd }}.lib exit 1  # [win]
         - pushd tests
-        - pushd distutils
-        - python setup.py install -v -v
-        - python -c "import foobar"
-        - popd
         - pushd prefix-replacement    # [unix]
         - bash build-and-test.sh      # [unix]
         - popd    # [unix]
