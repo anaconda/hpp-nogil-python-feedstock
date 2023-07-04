@@ -50,6 +50,9 @@ source:
       - patches/0032-ctypes-link-to-coreFoundation.patch
       # MailCap CVE (CVE-2015-20107) was fixed in 3.8.16
       # - patches/0033-py38-mailcap-CVE-2015-20107.patch
+      {% if (openssl | string).startswith('3.0') %}
+      - patches/0034-Use-OpenSSL-3-instead-of-1_1.patch
+      {% endif %}
 
   # TODO :: Depend on our own packages for these:
   - url: https://github.com/python/cpython-source-deps/archive/xz-5.2.2.zip          # [win]
