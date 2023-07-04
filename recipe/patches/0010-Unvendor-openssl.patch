@@ -160,8 +160,8 @@ index 57360e57ba..51b2d8cc0a 100644
 -    <libffiDir Condition="$(libffiDir) == ''">$(ExternalsDir)libffi-3.3.0\</libffiDir>
 -    <libffiOutDir Condition="$(libffiOutDir) == ''">$(libffiDir)$(ArchName)\</libffiOutDir>
 -    <libffiIncludeDir Condition="$(libffiIncludeDir) == ''">$(libffiOutDir)include</libffiIncludeDir>
--    <opensslDir Condition="$(opensslDir) == ''">$(ExternalsDir)openssl-1.1.1t\</opensslDir>
--    <opensslOutDir Condition="$(opensslOutDir) == ''">$(ExternalsDir)openssl-bin-1.1.1t\$(ArchName)\</opensslOutDir>
+-    <opensslDir Condition="$(opensslDir) == ''">$(ExternalsDir)openssl-1.1.1u\</opensslDir>
+-    <opensslOutDir Condition="$(opensslOutDir) == ''">$(ExternalsDir)openssl-bin-1.1.1u\$(ArchName)\</opensslOutDir>
 -    <opensslIncludeDir Condition="$(opensslIncludeDir) == ''">$(opensslOutDir)include</opensslIncludeDir>
 +    <!-- <sqlite3Dir Condition="$(sqlite3Dir) == ''">$(ExternalsDir)sqlite-3.40.1.0\</sqlite3Dir> -->
 +    <!-- <bz2Dir Condition="$(bz2Dir) == ''">$(ExternalsDir)bzip2-1.0.8\</bz2Dir> -->
