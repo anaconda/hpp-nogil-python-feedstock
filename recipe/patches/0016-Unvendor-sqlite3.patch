@@ -27,15 +27,15 @@ diff --git a/PCbuild/python.props b/PCbuild/python.props
 index 9c2838b162..2360417748 100644
 --- a/PCbuild/python.props	2022-03-21 10:45:53.262844346 +0300
 +++ b/PCbuild/python.props	2022-03-21 10:52:43.080395322 +0300
-@@ -57,7 +57,7 @@
-     <ExternalsDir>$(EXTERNALS_DIR)</ExternalsDir>
-     <ExternalsDir Condition="$(ExternalsDir) == ''">$([System.IO.Path]::GetFullPath(`$(PySourcePath)externals`))</ExternalsDir>
-     <ExternalsDir Condition="!HasTrailingSlash($(ExternalsDir))">$(ExternalsDir)\</ExternalsDir>
--    <sqlite3Dir>$(ExternalsDir)sqlite-3.37.2.0\</sqlite3Dir>
-+    <sqlite3Dir>$(SQLITE3_DIR)\</sqlite3Dir>
-     <bz2Dir>$(ExternalsDir)bzip2-1.0.8\</bz2Dir>
-     <lzmaDir>$(ExternalsDir)xz-5.2.2\</lzmaDir>
-     <libffiDir>$(ExternalsDir)libffi-3.3.0\</libffiDir>
+@@ -62,7 +62,7 @@
+   <Import Project="$(ExternalProps)" Condition="$(ExternalProps) != '' and Exists('$(ExternalProps)')" />
+ 
+   <PropertyGroup>
+-    <sqlite3Dir Condition="$(sqlite3Dir) == ''">$(ExternalsDir)sqlite-3.37.2.0\</sqlite3Dir>
++    <sqlite3Dir Condition="$(sqlite3Dir) == ''">$(SQLITE3_DIR)\</sqlite3Dir>
+     <bz2Dir Condition="$(bz2Dir) == ''">$(ExternalsDir)bzip2-1.0.8\</bz2Dir>
+     <lzmaDir Condition="$(lzmaDir) == ''">$(ExternalsDir)xz-5.2.5\</lzmaDir>
+     <libffiDir Condition="$(libffiDir) == ''">$(ExternalsDir)libffi-3.3.0\</libffiDir>
 diff --git a/PCbuild/_sqlite3.vcxproj b/PCbuild/_sqlite3.vcxproj
 index 7e0062692b..3e7b2262e8 100644
 --- a/PCbuild/_sqlite3.vcxproj	2022-03-21 10:52:01.371735903 +0300
