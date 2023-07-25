@@ -1,6 +1,8 @@
 #!/bin/bash
 set -ex
 
+cd ${SRC_DIR}
+
 _buildd_static=build-static
 _buildd_shared=build-shared
 if [[ ${DEBUG_PY} == yes ]]; then
