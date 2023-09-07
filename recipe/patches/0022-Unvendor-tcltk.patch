@@ -1,7 +1,7 @@
-From 83bc57d41f40929e116ea67e08c94b4705efadd0 Mon Sep 17 00:00:00 2001
-From: Charles Bousseau <cbousseau@anaconda.com>
-Date: Fri, 26 May 2023 09:10:42 -0400
-Subject: [PATCH] Unvendor tcltk
+From a18bab6405f24e209fa6f75cd8f13aad455064f8 Mon Sep 17 00:00:00 2001
+From: Isuru Fernando <isuruf@gmail.com>
+Date: Fri, 20 Aug 2021 10:23:51 -0700
+Subject: [PATCH 23/25] Unvendor tcltk
 
 ---
  PCbuild/_tkinter.vcxproj | 6 ------
