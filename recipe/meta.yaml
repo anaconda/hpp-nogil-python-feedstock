@@ -78,9 +78,6 @@ source:
       - patches/0017-Do-not-pass-g-to-GCC-when-not-Py_DEBUG.patch
       - patches/0019-Remove-unused-readelf.patch
       - patches/0021-Override-configure-LIBFFI.patch
-      {% if (openssl | string).startswith('1.1.1') %}
-      - patches/0022-Use-OpenSSL-1_1-instead-of-3.patch
-      {% endif %}
 
 build:
   number: {{ build_number }}
