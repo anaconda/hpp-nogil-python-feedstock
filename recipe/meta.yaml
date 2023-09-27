@@ -1,6 +1,6 @@
 {% set version = "3.12.0" %}
-{% set dev = "rc2" %}
-{% set dev_ = "rc2_" %}
+{% set dev = "rc3" %}
+{% set dev_ = "rc3_" %}
 {% set ver2 = '.'.join(version.split('.')[0:2]) %}
 {% set ver2nd = ''.join(version.split('.')[0:2]) %}
 {% set ver3nd = ''.join(version.split('.')[0:3]) %}
@@ -50,36 +50,35 @@ source:
 {% else %}
   - url: https://www.python.org/ftp/python/{{ version }}/Python-{{ version }}{{ dev }}.tar.xz
     # md5 from: https://www.python.org/downloads/release/python-{{ ver3nd }}/
-    sha256: 11eb10376e6baf7bea53001f5181eaee1797788c4db6e83a061e422357927674
+    sha256: 96397e891e98802b1d399dee3ceaeb9bcf0aa2566c8a7b1cce4d0196c277506a
 {% endif %}
     patches:
+      - patches/0000-branding.patch
       - patches/0001-Win32-Change-FD_SETSIZE-from-512-to-2048.patch
-      - patches/0006-Win32-Do-not-download-externals.patch
-      - patches/0007-Fix-find_library-so-that-it-looks-in-sys.prefix-lib-.patch
+      - patches/0002-Win32-Do-not-download-externals.patch
+      - patches/0003-Fix-find_library-so-that-it-looks-in-sys.prefix-lib-.patch
       # https://github.com/python/cpython/pull/28397
       # Patch doesn't apply, but is Debian-specific anyway.
       # - patches/0008-bpo-22699-Allow-compiling-on-debian-ubuntu-with-a-di.patch
-      - patches/0009-Disable-registry-lookup-unless-CONDA_PY_ALLOW_REG_PA.patch
-      - patches/0010-Unvendor-openssl.patch
-      - patches/0011-Unvendor-sqlite3.patch
-      - patches/0013-Add-CondaEcosystemModifyDllSearchPath.patch
-      - patches/0015-Doing-d1trimfile.patch
+      - patches/0004-Disable-registry-lookup-unless-CONDA_PY_ALLOW_REG_PA.patch
+      - patches/0005-Unvendor-openssl.patch
+      - patches/0006-Unvendor-sqlite3.patch
+      - patches/0007-Add-CondaEcosystemModifyDllSearchPath.patch
+      - patches/0008-Doing-d1trimfile.patch
       # https://github.com/python/cpython/pull/23523
-      - patches/0016-cross-compile-darwin.patch
-      - patches/0017-Fix-TZPATH-on-windows.patch
+      - patches/0009-cross-compile-darwin.patch
+      - patches/0010-Fix-TZPATH-on-windows.patch
       # https://github.com/python/cpython/pull/24324
-      - patches/0018-Make-dyld-search-work-with-SYSTEM_VERSION_COMPAT-1.patch
-      - patches/0020-Unvendor-bzip2.patch
-      - patches/0021-Unvendor-libffi.patch
-      - patches/0022-Unvendor-tcltk.patch
-      - patches/0023-unvendor-xz.patch
-      - patches/0024-unvendor-zlib.patch
-      - patches/0025-Do-not-pass-g-to-GCC-when-not-Py_DEBUG.patch
-      - patches/0026-Remove-unused-readelf.patch
-      - patches/0027-branding.patch
-      {% if (openssl | string).startswith('1.1.1') %}
-      - patches/0028-Use-OpenSSL-1_1-instead-of-3.patch
-      {% endif %}
+      - patches/0011-Make-dyld-search-work-with-SYSTEM_VERSION_COMPAT-1.patch
+      - patches/0012-Unvendor-bzip2.patch
+      - patches/0013-Unvendor-libffi.patch
+      - patches/0014-Unvendor-tcltk.patch
+      - patches/0015-unvendor-xz.patch
+      - patches/0016-unvendor-zlib.patch
+      - patches/0017-Do-not-pass-g-to-GCC-when-not-Py_DEBUG.patch
+      - patches/0018-Unvendor-expat.patch
+      - patches/0019-Remove-unused-readelf.patch
+      - patches/0021-Override-configure-LIBFFI.patch
 
 build:
   number: {{ build_number }}
@@ -191,6 +190,7 @@ outputs:
         - libffi {{ libffi }}
         - ld_impl_{{ target_platform }} >=2.35.1  # [linux]
         - libuuid 1.41.5 # [linux]
+        - expat {{ expat }}
       run:
         - ld_impl_{{ target_platform }} >=2.35.1  # [linux]
         - tzdata
