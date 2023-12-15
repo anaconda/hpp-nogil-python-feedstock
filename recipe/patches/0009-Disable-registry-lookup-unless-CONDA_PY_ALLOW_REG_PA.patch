@@ -12,11 +12,11 @@ Co-authored-by: Isuru Fernando<isuruf@gmail.com>
  3 files changed, 1148 insertions(+), 1 deletion(-)
  create mode 100644 PC/getpathp.c
 
-diff --git a/Modules/getpath.c b/Modules/getpath.c
-index 94479887cf..5ca10cb0f2 100644
---- a/Modules/getpath.c
-+++ b/Modules/getpath.c
-@@ -894,6 +894,7 @@ _PyConfig_InitPathConfig(PyConfig *config, int compute_path_config)
+Index: CPython/Modules/getpath.c
+===================================================================
+--- CPython.orig/Modules/getpath.c	2023-12-14 17:26:29.166336000 -0600
++++ CPython/Modules/getpath.c	2023-12-14 17:26:55.751864098 -0600
+@@ -903,6 +903,7 @@
          !env_to_dict(dict, "ENV_PATH", 0) ||
          !env_to_dict(dict, "ENV_PYTHONHOME", 0) ||
          !env_to_dict(dict, "ENV_PYTHONEXECUTABLE", 0) ||
@@ -24,10 +24,10 @@ index 94479887cf..5ca10cb0f2 100644
          !env_to_dict(dict, "ENV___PYVENV_LAUNCHER__", 1) ||
          !progname_to_dict(dict, "real_executable") ||
          !library_to_dict(dict, "library") ||
-diff --git a/Modules/getpath.py b/Modules/getpath.py
-index dceeed7702..334455f7d6 100644
---- a/Modules/getpath.py
-+++ b/Modules/getpath.py
+Index: CPython/Modules/getpath.py
+===================================================================
+--- CPython.orig/Modules/getpath.py	2023-12-14 17:26:29.166444000 -0600
++++ CPython/Modules/getpath.py	2023-12-14 17:26:55.752181931 -0600
 @@ -51,6 +51,7 @@
  # ENV_PYTHONHOME          -- [in] getenv(...)
  # ENV_PYTHONEXECUTABLE    -- [in] getenv(...)
@@ -36,7 +36,7 @@ index dceeed7702..334455f7d6 100644
  
  # ** Values calculated at runtime **
  # config            -- [in/out] dict of the PyConfig structure
-@@ -654,7 +655,7 @@ def search_up(prefix, *landmarks, test=isfile):
+@@ -673,7 +674,7 @@
      else:
          pythonpath.append(joinpath(prefix, ZIP_LANDMARK))
  
@@ -45,11 +45,10 @@ index dceeed7702..334455f7d6 100644
          # QUIRK: Windows also lists paths in the registry. Paths are stored
          # as the default value of each subkey of
          # {HKCU,HKLM}\Software\Python\PythonCore\{winver}\PythonPath
-diff --git a/PC/getpathp.c b/PC/getpathp.c
-new file mode 100644
-index 0000000000..a73ea8a0e9
---- /dev/null
-+++ b/PC/getpathp.c
+Index: CPython/PC/getpathp.c
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ CPython/PC/getpathp.c	2023-12-14 17:26:55.753097597 -0600
 @@ -0,0 +1,1145 @@
 +
 +/* Return the initial module search path. */
@@ -1196,6 +1195,3 @@ index 0000000000..a73ea8a0e9
 +    }
 +    return hPython3 != NULL;
 +}
--- 
-2.32.1 (Apple Git-133)
-

@@ -11,11 +11,11 @@ By Isuru Fernando.
  setup.py        | 6 +++---
  4 files changed, 17 insertions(+), 6 deletions(-)
 
-diff --git a/Lib/platform.py b/Lib/platform.py
-index c272c407c7..c05b9b8ea9 100755
---- a/Lib/platform.py
-+++ b/Lib/platform.py
-@@ -413,7 +413,12 @@ def win32_ver(release='', version='', csd='', ptype=''):
+Index: CPython/Lib/platform.py
+===================================================================
+--- CPython.orig/Lib/platform.py	2023-12-14 17:49:23.307172000 -0600
++++ CPython/Lib/platform.py	2023-12-14 17:49:31.861760057 -0600
+@@ -414,7 +414,12 @@
  def _mac_ver_xml():
      fn = '/System/Library/CoreServices/SystemVersion.plist'
      if not os.path.exists(fn):
@@ -29,11 +29,11 @@ index c272c407c7..c05b9b8ea9 100755
  
      try:
          import plistlib
-diff --git a/configure b/configure
-index 91227f00be..b89d1a380a 100755
---- a/configure
-+++ b/configure
-@@ -3873,6 +3873,9 @@ if test "$cross_compiling" = yes; then
+Index: CPython/configure
+===================================================================
+--- CPython.orig/configure	2023-12-14 17:49:23.307057000 -0600
++++ CPython/configure	2023-12-14 17:49:31.864960501 -0600
+@@ -3887,6 +3887,9 @@
  			_host_cpu=$host_cpu
  		esac
  		;;
@@ -43,7 +43,7 @@ index 91227f00be..b89d1a380a 100755
  	*-*-cygwin*)
  		_host_cpu=
  		;;
-@@ -7051,7 +7054,7 @@ esac
+@@ -7220,7 +7223,7 @@
    fi
  fi
  
@@ -52,11 +52,11 @@ index 91227f00be..b89d1a380a 100755
      case "$READELF" in
  	readelf|:)
  	as_fn_error $? "readelf for the host is required for cross builds" "$LINENO" 5
-diff --git a/configure.ac b/configure.ac
-index 77fb609b74..1d9fa9e4ef 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -597,6 +597,9 @@ if test "$cross_compiling" = yes; then
+Index: CPython/configure.ac
+===================================================================
+--- CPython.orig/configure.ac	2023-12-14 17:49:23.306975000 -0600
++++ CPython/configure.ac	2023-12-14 17:49:31.866025176 -0600
+@@ -605,6 +605,9 @@
  			_host_cpu=$host_cpu
  		esac
  		;;
@@ -66,7 +66,7 @@ index 77fb609b74..1d9fa9e4ef 100644
  	*-*-cygwin*)
  		_host_cpu=
  		;;
-@@ -1590,7 +1593,7 @@ then
+@@ -1634,7 +1637,7 @@
  fi
  
  AC_CHECK_TOOLS([READELF], [readelf], [:])
@@ -75,11 +75,11 @@ index 77fb609b74..1d9fa9e4ef 100644
      case "$READELF" in
  	readelf|:)
  	AC_MSG_ERROR([readelf for the host is required for cross builds])
-diff --git a/setup.py b/setup.py
-index 1bb48591c6..79dae21c6d 100644
---- a/setup.py
-+++ b/setup.py
-@@ -81,7 +81,7 @@ def get_platform():
+Index: CPython/setup.py
+===================================================================
+--- CPython.orig/setup.py	2023-12-14 17:49:23.307112000 -0600
++++ CPython/setup.py	2023-12-14 17:49:31.866430930 -0600
+@@ -81,7 +81,7 @@
  HOST_PLATFORM = get_platform()
  MS_WINDOWS = (HOST_PLATFORM == 'win32')
  CYGWIN = (HOST_PLATFORM == 'cygwin')
@@ -88,7 +88,7 @@ index 1bb48591c6..79dae21c6d 100644
  AIX = (HOST_PLATFORM.startswith('aix'))
  VXWORKS = ('vxworks' in HOST_PLATFORM)
  EMSCRIPTEN = HOST_PLATFORM == 'emscripten-wasm32'
-@@ -1046,11 +1046,11 @@ def detect_readline_curses(self):
+@@ -1049,11 +1049,11 @@
                  readline_lib = 'readline'
              do_readline = self.compiler.find_library_file(self.lib_dirs,
                  readline_lib)
@@ -102,6 +102,3 @@ index 1bb48591c6..79dae21c6d 100644
                  ret = run_command("ldd %s > %s" % (do_readline, tmpfile))
              else:
                  ret = 1
--- 
-2.32.1 (Apple Git-133)
-
