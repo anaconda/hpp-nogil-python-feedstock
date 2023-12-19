@@ -119,7 +119,7 @@ outputs:
       #   - lib/python{{ ver2 }}/lib-dynload/_hashlib.cpython-{{ ver2nd }}-x86_64-linux-gnu.so  # [linux]
       #   - lib/libpython3.dylib  # [osx]
       # match python.org compiler standard
-      skip: true  # [win and int(float(vc)) < 14]
+      skip: true  # [win and (int(float(vc)) < 14 or readline_mode != 'none')]
 {% if 'conda-forge' in channel_targets %}
       skip_compile_pyc:
         - '*.py'            # [build_platform != target_platform]
@@ -136,6 +136,7 @@ outputs:
       script_env:
         - PY_INTERP_LINKAGE_NATURE={{ linkage_nature_env }}
         - PY_INTERP_DEBUG={{ py_interp_debug }}
+        - READLINE_MODE={{ readline_mode }}
         # Putting these here means they get emitted to build_env_setup.{sh,bat} meaning we can launch IDEs
         # after sourcing or calling that script without examine the contents of conda_build.{sh,bat} for
         # important env. vars.
@@ -184,7 +185,8 @@ outputs:
         - xz {{ xz }}
         - zlib {{ zlib }}
         - openssl {{ openssl }}
-        - readline {{ readline }} # [not win]
+        - readline {{ readline }} # [readline_mode == 'readline']
+        - libedit # [readline_mode == 'editline']
         - tk {{ tk }}
         - ncurses 6.4 # [unix]
         - libffi {{ libffi }}

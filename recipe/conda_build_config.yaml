@@ -4,6 +4,10 @@ python_impl:
   - cpython
 numpy:
   - 1.26
+readline_mode:
+  - readline
+  - editline
+  - none
 MACOSX_SDK_VERSION:  # [osx and x86_64]
   - 10.14            # [osx and x86_64]
 CONDA_BUILD_SYSROOT:  # [osx and x86_64]
