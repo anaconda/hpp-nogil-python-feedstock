@@ -39,6 +39,10 @@
   {% set py_interp_debug = "no" %}
 {% endif %}
 
+{% set rl_string = "" %}      # [win or readline_mode == 'readline']
+{% set rl_string = "el_" %}    # [readline_mode == 'editline']
+{% set rl_string = "norl_" %}  # [readline_mode == 'none']
+
 package:
   name: python-split
   version: {{ version }}{{ dev }}
@@ -79,6 +83,7 @@ source:
       - patches/0018-Unvendor-expat.patch
       - patches/0019-Remove-unused-readelf.patch
       - patches/0021-Override-configure-LIBFFI.patch
+      - patches/0022-Fix-build-with-newer-editline.patch
 
 build:
   number: {{ build_number }}
@@ -124,8 +129,8 @@ outputs:
       skip_compile_pyc:
         - '*.py'            # [build_platform != target_platform]
 {% endif %}
-      string: {{ dev_ }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}{{ linkage_nature }}{{ debug }}_cpython  # ["conda-forge" in (channel_targets or "")]
-      string: h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}{{ linkage_nature }}{{ debug }}  # ["conda-forge" not in (channel_targets or "")]
+      string: {{ dev_ }}h{{ PKG_HASH }}_{{ rl_string }}{{ PKG_BUILDNUM }}{{ linkage_nature }}{{ debug }}_cpython  # ["conda-forge" in (channel_targets or "")]
+      string: h{{ PKG_HASH }}_{{ rl_string }}{{ PKG_BUILDNUM }}{{ linkage_nature }}{{ debug }}  # ["conda-forge" not in (channel_targets or "")]
 {% if 'conda-forge' in channel_targets %}
       run_exports:
         noarch:
@@ -285,9 +290,9 @@ outputs:
 {% if 'conda-forge' in channel_targets %}
       ignore_run_exports:
         - python_abi
-      string: h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}{{ linkage_nature }}{{ debug }}_cpython
+      string: h{{ PKG_HASH }}_{{ rl_string }}{{ PKG_BUILDNUM }}{{ linkage_nature }}{{ debug }}_cpython
 {% else %}
-      string: h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}{{ linkage_nature }}{{ debug }}
+      string: h{{ PKG_HASH }}_{{ rl_string }}{{ PKG_BUILDNUM }}{{ linkage_nature }}{{ debug }}
 {% endif %}
     requirements:
       build:
