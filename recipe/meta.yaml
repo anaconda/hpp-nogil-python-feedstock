@@ -104,7 +104,8 @@ outputs:
     script: build_base.sh  # [unix]
     script: build_base.bat  # [win]
     build:
-      number: {{ build_number }}
+      number: {{ build_number + 100 }}  # [win or readline_mode == 'readline']
+      number: {{ build_number }}        # [not(win or readline_mode == 'readline')]
       activate_in_script: true
       # Windows has issues updating python if conda is using files itself.
       # Copy rather than link.
@@ -286,7 +287,8 @@ outputs:
     script: build_static.sh  # [unix]
     script: build_static.bat  # [win]
     build:
-      number: {{ build_number }}
+      number: {{ build_number + 100 }}  # [win or readline_mode == 'readline']
+      number: {{ build_number }}        # [not(win or readline_mode == 'readline')]
       activate_in_script: true
 {% if 'conda-forge' in channel_targets %}
       ignore_run_exports:
