@@ -6,3 +6,6 @@ build_parameters:
   - "--error-overdepending"
 
 aggregate_check: false
+
+channels:
+  - norl
