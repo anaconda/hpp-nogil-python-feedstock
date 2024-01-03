@@ -9,3 +9,5 @@ aggregate_check: false
 
 channels:
   - norl
+
+upload_without_merge: true
