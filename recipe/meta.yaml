@@ -1,4 +1,4 @@
-{% set version = "3.9.18" %}
+{% set version = "3.9.19" %}
 {% set dev = "" %}
 {% set dev_ = "" %}
 {% set ver2 = '.'.join(version.split('.')[0:2]) %}
@@ -44,7 +44,7 @@ source:
     git_tag: v{{ version }}{{ dev }}
 {% else %}
   - url: https://www.python.org/ftp/python/{{ version }}/Python-{{ version }}{{ dev }}.tar.xz
-    sha256: 01597db0132c1cf7b331eff68ae09b5a235a3c3caa9c944c29cac7d1c4c4c00a
+    sha256: d4892cd1618f6458cb851208c030df1482779609d0f3939991bd38184f8c679e
 {% endif %}
     patches:
       ## - patches/0000-Fix-off-by-one-error-in-_winapi_WaitForMultipleObjec.patch
@@ -108,9 +108,9 @@ source:
   - url: https://github.com/python/cpython-source-deps/archive/bzip2-1.0.8.zip       # [win]
     folder: externals/bzip2-1.0.8                                                    # [win]
     sha256: 12c17d15f99e27235529574a722fb484a4e8fdf2427cef53b1b68bdf07e404a9         # [win]
-  - url: https://github.com/python/cpython-source-deps/archive/zlib-1.2.12.zip       # [win]
-    folder: externals/zlib-1.2.12                                                    # [win]
-    sha256: 92197502951ac8414ece9f2d9fa2cc010c51d610e6b2ed9833ba4a35d65f222b         # [win]
+  - url: https://github.com/python/cpython-source-deps/archive/zlib-1.3.1.zip       # [win]
+    folder: externals/zlib-1.3.1                                                    # [win]
+    sha256: a8f166f0f819ff084042554f39d763c41de5f19f8e9cdc68bc3e7f373cfba036         # [win]
   - url: https://github.com/python/cpython-bin-deps/archive/nasm-2.11.06.zip         # [win]
     folder: externals/nasm-2.11.06                                                   # [win]
     sha256: de3c87b26a80e789986d8e6950c6304175d3829afe9c6c7211eb7257266ab0ac         # [win]
