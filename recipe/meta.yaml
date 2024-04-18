@@ -1,4 +1,4 @@
-{% set version = "3.12.2" %}
+{% set version = "3.12.3" %}
 {% set dev = "" %}
 {% set dev_ = "" %}
 {% set ver2 = '.'.join(version.split('.')[0:2]) %}
@@ -50,7 +50,7 @@ source:
 {% else %}
   - url: https://www.python.org/ftp/python/{{ version }}/Python-{{ version }}{{ dev }}.tar.xz
     # md5 from: https://www.python.org/downloads/release/python-{{ ver3nd }}/
-    sha256: be28112dac813d2053545c14bf13a16401a21877f1a69eb6ea5d84c4a0f3d870
+    sha256: 56bfef1fdfc1221ce6720e43a661e3eb41785dd914ce99698d8c7896af4bdaa1
 {% endif %}
     patches:
       - patches/0000-branding.patch
