@@ -61,10 +61,10 @@ source:
       # Patch doesn't apply, but is Debian-specific anyway.
       # - patches/0008-bpo-22699-Allow-compiling-on-debian-ubuntu-with-a-di.patch
       - patches/0004-Disable-registry-lookup-unless-CONDA_PY_ALLOW_REG_PA.patch
-      - patches/0005-Unvendor-openssl.patch
+      - patches/0005-Unvendor-openssl.patch  # [win]
       - patches/0006-Unvendor-sqlite3.patch
       - patches/0007-Add-CondaEcosystemModifyDllSearchPath.patch
-      - patches/0008-Doing-d1trimfile.patch
+      - patches/0008-Doing-d1trimfile.patch  # [win]
       # https://github.com/python/cpython/pull/23523
       - patches/0009-cross-compile-darwin.patch
       - patches/0010-Fix-TZPATH-on-windows.patch
@@ -72,11 +72,11 @@ source:
       - patches/0011-Make-dyld-search-work-with-SYSTEM_VERSION_COMPAT-1.patch
       - patches/0012-Unvendor-bzip2.patch
       - patches/0013-Unvendor-libffi.patch
-      - patches/0014-Unvendor-tcltk.patch
-      - patches/0015-unvendor-xz.patch
-      - patches/0016-unvendor-zlib.patch
+      - patches/0014-Unvendor-tcltk.patch  # [win]
+      - patches/0015-unvendor-xz.patch  # [win]
+      - patches/0016-unvendor-zlib.patch  # [win]
       - patches/0017-Do-not-pass-g-to-GCC-when-not-Py_DEBUG.patch
-      - patches/0018-Unvendor-expat.patch
+      - patches/0018-Unvendor-expat.patch  # [win]
       - patches/0019-Remove-unused-readelf.patch
       - patches/0021-Override-configure-LIBFFI.patch
 
